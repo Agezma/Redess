@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6D232B1C-B852-4D79-22D5-ADBD6D6866BB}</ProjectGuid>
+    <ProjectGuid>{35C49104-8E4B-23D0-3D9B-9575B495DF75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonChat</AssemblyName>
@@ -78,10 +78,10 @@
     <None Include="Assets\Photon\PhotonChat\Code\changes-chat.txt" />
     <None Include="Assets\Photon\PhotonChat\Code\PhotonChat.asmdef" />
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -276,10 +276,10 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -629,7 +629,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonWebSocket.csproj">
-      <Project>{C59A28C1-BEC5-4455-02AD-183C0C3E7F1F}</Project>
+      <Project>{90DC13CC-ED45-241C-D56F-50CE8744CFF2}</Project>
       <Name>PhotonWebSocket</Name>
     </ProjectReference>
   </ItemGroup>

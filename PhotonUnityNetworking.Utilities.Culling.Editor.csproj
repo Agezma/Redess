@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{EC2EACE7-961C-C573-5E0A-922BB990BCC0}</ProjectGuid>
+    <ProjectGuid>{F4030251-E327-5D84-D72E-5BA792813771}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonUnityNetworking.Utilities.Culling.Editor</AssemblyName>
@@ -65,16 +65,16 @@
     <Compile Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\Culling\Editor\CullAreaEditor.cs" />
     <None Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\Culling\Editor\PhotonUnityNetworking.Utilities.Culling.Editor.asmdef" />
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -269,13 +269,13 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -634,7 +634,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{DF8C59DF-14F0-2D2F-8AD3-6DEF105FA24C}</Project>
+      <Project>{143A8A26-AA3F-DBD0-8DA5-BC8127141B8C}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
   </ItemGroup>

@@ -23,7 +23,7 @@ public class CameraRotator : MonoBehaviour
         phView = GetComponentInParent<PhotonView>();
     }
 
-    void  FixedUpdate()
+    void FixedUpdate()
     {
         if (!phView.IsMine) return;
 

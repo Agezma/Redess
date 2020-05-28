@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F9F7784A-584D-F046-F6F0-0E77B78D0128}</ProjectGuid>
+    <ProjectGuid>{47BCC055-1E1B-6B53-A773-DE09B0AFC848}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</AssemblyName>
@@ -67,16 +67,16 @@
     <Compile Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\PhotonPlayer\Editor\PunTeamsInspector.cs" />
     <None Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\PhotonPlayer\Editor\PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef" />
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -271,13 +271,13 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -636,19 +636,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{C2C71AB5-808D-8395-BC13-9CC154A82339}</Project>
+      <Project>{575ECF98-2035-F659-89FD-D9354F1CBD1B}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{6FF5A451-CCCC-37DF-798A-2CEEB8765CAC}</Project>
+      <Project>{E809B5E9-9CAC-CB65-477D-2032599C671E}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{DF8C59DF-14F0-2D2F-8AD3-6DEF105FA24C}</Project>
+      <Project>{143A8A26-AA3F-DBD0-8DA5-BC8127141B8C}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
-      <Project>{8E996E10-B7BD-FD3D-EEA7-076E6B12A57B}</Project>
+      <Project>{79C3FFA1-4804-EB10-6D50-09EF26421616}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
     </ProjectReference>
   </ItemGroup>

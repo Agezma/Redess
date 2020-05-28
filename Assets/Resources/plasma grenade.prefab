@@ -225,8 +225,9 @@ MonoBehaviour:
   maxAmount: 1000
   speed: 5
   lifeSpan: 5
-  explosionRange: 5
-  explosionDamage: 5
+  minRange: 3
+  maxRange: 8
+  explosionDamage: 120
 --- !u!114 &1861484397222631027
 MonoBehaviour:
   m_ObjectHideFlags: 0

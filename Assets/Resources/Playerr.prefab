@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &797718601
 Transform:
   m_ObjectHideFlags: 0
@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 3167820292518028301}
   - component: {fileID: 630703565055057034}
   - component: {fileID: 2521226442267775579}
+  - component: {fileID: -3669624242582184987}
   - component: {fileID: 3531583413831358121}
   - component: {fileID: 2566293079050504059}
   - component: {fileID: 1451915738802020330}
@@ -205,11 +206,27 @@ MonoBehaviour:
   grenadePos: {fileID: 8297282419884591242}
   myAnim: {fileID: 1894290132907757097}
   maxHp: 100
+  colors:
+  - {r: 0.4117647, g: 0.6039216, b: 1, a: 0}
+  - {r: 0.7176471, g: 0.34509805, b: 0.21176471, a: 0}
   modelsToHide:
   - {fileID: 7388916761876725439}
   - {fileID: 5747809470361387277}
   - {fileID: 801501844608281496}
   myWeaponModel: {fileID: 5662268382573500872}
+--- !u!114 &-3669624242582184987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352499116683329068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d3a3f70e7b8264fa481dcf6ac94945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeText: {fileID: 0}
 --- !u!65 &3531583413831358121
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -333,6 +350,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: Shoot
+  - Type: 9
+    SynchronizeType: 0
+    Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -473,11 +493,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -8235243974794861656, guid: b9aaaa0e0177b14489bbbcca48730b73,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6315517d3c717940bee6eb469d2b4e0, type: 2}
     - target: {fileID: -7943378556525867576, guid: b9aaaa0e0177b14489bbbcca48730b73,
         type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -7547913982447161674, guid: b9aaaa0e0177b14489bbbcca48730b73,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6315517d3c717940bee6eb469d2b4e0, type: 2}
     - target: {fileID: -7359990308800947477, guid: b9aaaa0e0177b14489bbbcca48730b73,
         type: 3}
       propertyPath: m_Layer

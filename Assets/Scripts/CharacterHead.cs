@@ -25,7 +25,8 @@ public class CharacterHead : MonoBehaviourPun
     [SerializeField] Animator myAnim;
 
     [SerializeField] float maxHp;
-    float currentHP;
+    public Color[] colors = new Color[2];
+    public float currentHP { get; private set; }
 
     bool rewindInCD = false;
     bool rewinding;
@@ -39,9 +40,13 @@ public class CharacterHead : MonoBehaviourPun
     [SerializeField] GameObject[] modelsToHide;
     [SerializeField] GameObject myWeaponModel;
 
+    bool isDead = false;
+
+    UpdateOnUI onUI;
+
     private void Awake()
     {
-        if (PhotonNetwork.LocalPlayer.IsLocal)
+        if (photonView.IsMine)
         {
             foreach (var item in modelsToHide)
             {
@@ -59,6 +64,10 @@ public class CharacterHead : MonoBehaviourPun
         rb = GetComponent<Rigidbody>();
         if(photonView.IsMine)
             myCam.gameObject.SetActive(true);
+        onUI = GetComponent<UpdateOnUI>();
+
+        isDead = false;
+        currentHP = maxHp;
        
     }
 
@@ -106,8 +115,8 @@ public class CharacterHead : MonoBehaviourPun
     }
     public void ThrowGrenade()
     {
-        Granade asd = charAttack.ThrowGranade(grenadePos.position, grenadePos.rotation, prefabGrenade);
-        currentRewindable = asd;
+        Granade myGranade = charAttack.ThrowGranade(grenadePos.position, grenadePos.rotation, prefabGrenade);
+        currentRewindable = myGranade;
     }
 
     void CooldownRewind()
@@ -116,12 +125,24 @@ public class CharacterHead : MonoBehaviourPun
 
     public void TakeDamage(float dmg)
     {
-        photonView.RPC("ReceiveDamage", RpcTarget.AllBuffered, dmg);
+        if (!photonView.IsMine) return;
+        currentHP -= dmg;
+        Debug.Log(currentHP + "Recibi daño");
+        onUI.UpdateLifeText(currentHP);
+        if(currentHP <= 0)
+        {
+            Die();
+        }
     }
 
     [PunRPC]
     void ReceiveDamage(float dmg)
     {
-        currentHP -= dmg;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        anim.SetTrigger("Die");
     }
 }

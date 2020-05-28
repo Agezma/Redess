@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{03721069-0918-2743-0D38-DF388B97F8BB}</ProjectGuid>
+    <ProjectGuid>{60199F9C-9523-7759-E81B-716355D1A790}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonUnityNetworking.Demos</AssemblyName>
@@ -168,10 +168,10 @@
     <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\eurof_tt.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\3dText.shader" />
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -366,10 +366,10 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/RedesPhoton/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+      <HintPath>C:/Users/agezm/OneDrive/Escritorio/Cuatrimestre 5/Redes/Redes/Redes/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -719,15 +719,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{C2C71AB5-808D-8395-BC13-9CC154A82339}</Project>
+      <Project>{575ECF98-2035-F659-89FD-D9354F1CBD1B}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{6FF5A451-CCCC-37DF-798A-2CEEB8765CAC}</Project>
+      <Project>{E809B5E9-9CAC-CB65-477D-2032599C671E}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{DF8C59DF-14F0-2D2F-8AD3-6DEF105FA24C}</Project>
+      <Project>{143A8A26-AA3F-DBD0-8DA5-BC8127141B8C}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
   </ItemGroup>

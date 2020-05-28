@@ -6,14 +6,18 @@ public class Granade : Rewindable
 {
     [SerializeField] float speed = 5;
     [SerializeField] float lifeSpan = 5f;
-    [SerializeField] float explosionRange = 5;
+    [SerializeField] float minRange = 3;
+    [SerializeField] float maxRange = 8f;
+
     [SerializeField] float explosionDamage = 5f;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
         shouldBeCapturingPosition = true;
+        StartCoroutine(Explode());
     }
 
     private void FixedUpdate()
@@ -29,14 +33,18 @@ public class Granade : Rewindable
     }
     public void Explosion()
     {
-        Collider[] myCols = Physics.OverlapSphere(transform.position, explosionRange);
+        Collider[] myCols = Physics.OverlapSphere(transform.position, minRange);
 
         foreach (var item in myCols)
         {
             if (item.GetComponent<CharacterHead>())
             {
                 CharacterHead current = item.GetComponent<CharacterHead>();
-                current.TakeDamage(( 1 - (Vector3.Distance(item.transform.position, transform.position) / explosionRange)) * explosionDamage );
+                var dist = Vector3.Distance(item.transform.position, transform.position);
+                if (dist < minRange)
+                    current.TakeDamage(explosionDamage);
+                else
+                    current.TakeDamage(( 1 - ((dist - minRange) / (maxRange-minRange))) * explosionDamage );
                 Vector3 force = item.transform.position - transform.position;
                 current.rb.AddForce(new Vector3(force.x, force.y / 5, force.z));
             }
