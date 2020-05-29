@@ -33,7 +33,7 @@ public class Granade : Rewindable
     }
     public void Explosion()
     {
-        Collider[] myCols = Physics.OverlapSphere(transform.position, minRange);
+        Collider[] myCols = Physics.OverlapSphere(transform.position, maxRange);
 
         foreach (var item in myCols)
         {
@@ -42,9 +42,14 @@ public class Granade : Rewindable
                 CharacterHead current = item.GetComponent<CharacterHead>();
                 var dist = Vector3.Distance(item.transform.position, transform.position);
                 if (dist < minRange)
-                    current.TakeDamage(explosionDamage);
+                {
+                    current.TakeDamage((int)explosionDamage);
+                }
                 else
-                    current.TakeDamage(( 1 - ((dist - minRange) / (maxRange-minRange))) * explosionDamage );
+                {
+                    current.TakeDamage((int)(( 1 - ((dist - minRange) / (maxRange-minRange))) * explosionDamage ));                   
+                }
+
                 Vector3 force = item.transform.position - transform.position;
                 current.rb.AddForce(new Vector3(force.x, force.y / 5, force.z));
             }

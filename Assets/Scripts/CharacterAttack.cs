@@ -19,16 +19,22 @@ public class CharacterAttack
 
     public Bullet Shoot(Vector3 pos, Quaternion rot, Bullet prefabBullet)
     {
-         RaycastHit hit;
-         if (Physics.Raycast(myPos.position, myPos.forward,out hit))
+
+        RaycastHit hit;
+        Vector3 ray = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 100));
+
+        //Vector3 dir = ray - transform.position;
+
+        if (Physics.Raycast(myPos.position, myPos.forward,out hit))
          {
+            //dir = hit.point - transform.position;
              if (hit.collider.gameObject.GetComponent<CharacterHead>())
              {
                  CharacterHead enemy = hit.collider.GetComponent<CharacterHead>();
                 enemy.TakeDamage(damage);
              }
          }
-
+        Debug.DrawRay(myPos.position, myPos.forward);
         GameObject myBullet = PhotonNetwork.Instantiate(prefabBullet.name, pos, rot);
 
         return myBullet.GetComponent<Bullet>();

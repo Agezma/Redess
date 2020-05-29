@@ -8,8 +8,13 @@ public class Main : MonoBehaviour
 {
     public Text lifeText;
 
-    private Main _instance;
+    public static Main instance;
 
-    Text GetLifeText() { return lifeText; }
+    public Text GetLifeText() { return lifeText; }
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
 }

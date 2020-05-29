@@ -8,7 +8,7 @@ public class UpdateOnUI : MonoBehaviour
     public Text lifeText;
     private void Start()
     {
-        lifeText = FindObjectOfType<Text>();
+        lifeText = Main.instance.GetLifeText();
     }
 
     public void UpdateLifeText(float life)

@@ -31,6 +31,9 @@ public class CharacterHead : MonoBehaviourPun
     bool rewindInCD = false;
     bool rewinding;
     float currentRewindCD;
+    [HideInInspector] public float kills;
+    [HideInInspector] public float deaths;
+
 
     Rewindable currentRewindable;
 

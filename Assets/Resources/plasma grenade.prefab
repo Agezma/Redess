@@ -225,8 +225,8 @@ MonoBehaviour:
   maxAmount: 1000
   speed: 5
   lifeSpan: 5
-  minRange: 3
-  maxRange: 8
+  minRange: 10
+  maxRange: 20
   explosionDamage: 120
 --- !u!114 &1861484397222631027
 MonoBehaviour:
