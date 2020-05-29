@@ -10,13 +10,15 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
 
     public Transform[] spawnPos;
 
-    List<Player> allPlayers = new List<Player>();
+    Player[] allPlayers;
 
     public void Awake()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         GetPlayers();
 
-        for (int i = 0; i < allPlayers.Count; i++)
+        for (int i = 0; i < allPlayers.Length; i++)
         {
             PhotonNetwork.Instantiate(prefabPlayer.name, spawnPos[i].position, spawnPos[i].rotation);
         }
@@ -24,9 +26,7 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
 
     void GetPlayers()
     {
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            allPlayers.Add(PhotonNetwork.CurrentRoom.GetPlayer(i));
-        }
+        allPlayers = PhotonNetwork.PlayerList;
+
     }
 }

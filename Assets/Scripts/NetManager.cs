@@ -65,6 +65,7 @@ public class NetManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
         {
             PhotonNetwork.LoadLevel("Level");
+            PhotonNetwork.CurrentRoom.IsOpen = false;
         }
     }
 
@@ -95,6 +96,7 @@ public class NetManager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
             {
                 PhotonNetwork.LoadLevel("Level");
+                PhotonNetwork.CurrentRoom.IsOpen = false;
             }           
         }
     }
