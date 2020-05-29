@@ -19,7 +19,7 @@ public class RoomDat : MonoBehaviour
     {
         roomInfo = info;
         myText.text = info.Name + "\n" + "Players: " + info.PlayerCount + "/" + info.MaxPlayers;
-        button.onClick.AddListener(delegate () { netManager.ConnectToRoom(info.Name); });
+        //button.onClick.AddListener(delegate () { netManager.ConnectToRoom(info.Name); });
     }
     public void UpdateInfo(RoomInfo info)
     {

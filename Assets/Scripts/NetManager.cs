@@ -1,36 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
-
 public class NetManager : MonoBehaviourPunCallbacks
 {
     public InputField roomName;
-    static bool isConected = false;
-    Text currentText;
-    Player asd;
+    public Text Log;
+    public Text PlayersCount;
+    public int playersCount;
+
     private void Awake()
     {
         Connect();
-        
     }
-    private void Start()
-    {
-    }
-
 
     void Connect()
     {
-        if (!isConected)
+        if (!PhotonNetwork.IsConnected)
         {
             PhotonNetwork.ConnectUsingSettings();
-            isConected = true;
         }
     }
-    
 
     #region Net Events
     public override void OnConnectedToMaster()
@@ -38,37 +29,37 @@ public class NetManager : MonoBehaviourPunCallbacks
         JoinRoomScene("Menu");
         Debug.Log("Conected");
         PhotonNetwork.JoinLobby();
+        Log.text += "Conected To Sever...";
     }
 
-
-    public override void OnJoinedLobby()
+    public void JoinRandom()
     {
-        base.OnJoinedLobby();
+        if (!PhotonNetwork.JoinRandomRoom())
+        {
+            Log.text += "\nJoining Room...";
+        }
+        else
+        {
+            Log.text += "\nFail Joining Room...";
+        }
+    }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Log.text = "\nNo Rooms Active, Creating One...";
+
+        if (PhotonNetwork.CreateRoom(roomName.text, new RoomOptions(), TypedLobby.Default))
+        {
+            Log.text += "\nRoom Created...";
+        }
+        else
+        {
+            Log.text += "\nFail Creating Room...";
+        }
     }
 
     public override void OnJoinedRoom()
     {
-        JoinRoomScene("Level");
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        base.OnJoinRoomFailed(returnCode, message);
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        base.OnJoinRandomFailed(returnCode, message);
-    }
-
-    public override void OnCreatedRoom()
-    {    
-    }
-    
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
+        Log.text += "\nJoining";
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -77,26 +68,27 @@ public class NetManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    public void NewRoomCreate()
-    {
-        RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 10;
-        
-        PhotonNetwork.CreateRoom(roomName.text, options, TypedLobby.Default);
-    }
-
     public void ConnectToLobby()
     {
         PhotonNetwork.JoinLobby();
     }
-    
-    public void ConnectToRoom(string level)
-    {
-        PhotonNetwork.JoinRoom(level);
-    }
-    
+
     public void JoinRoomScene(string level)
     {
         PhotonNetwork.LoadLevel(level);
+    }
+
+    private void FixedUpdate()
+    {
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            playersCount = PhotonNetwork.CurrentRoom.PlayerCount;
+            PlayersCount.text = playersCount.ToString();
+
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= 4)
+            {
+                PhotonNetwork.LoadLevel("Level");
+            }
+        }
     }
 }
