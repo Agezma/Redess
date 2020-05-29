@@ -126,16 +126,18 @@ public class CharacterHead : MonoBehaviourPun
     {
     }
 
-    public void TakeDamage(float dmg)
+    public bool TakeDamage(float dmg)
     {
-        if (!photonView.IsMine) return;
+        if (!photonView.IsMine) return false;
         currentHP -= dmg;
         Debug.Log(currentHP + "Recibi daño");
         onUI.UpdateLifeText(currentHP);
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
             Die();
+            return true;
         }
+        else return false;
     }
 
     [PunRPC]
@@ -143,9 +145,10 @@ public class CharacterHead : MonoBehaviourPun
     {
     }
 
-    public void Die()
+    bool Die()
     {
         isDead = true;
         anim.SetTrigger("Die");
+        return isDead;
     }
 }
