@@ -11,6 +11,9 @@ public class Granade : Rewindable
 
     [SerializeField] float explosionDamage = 5f;
 
+    public ParticleSystem explotion;
+    public ParticleSystem impulse;
+
 
     void Start()
     {
@@ -34,7 +37,8 @@ public class Granade : Rewindable
     public void Explosion()
     {
         Collider[] myCols = Physics.OverlapSphere(transform.position, maxRange);
-
+        explotion.Play();
+        impulse.Play();
         foreach (var item in myCols)
         {
             if (item.GetComponent<CharacterHead>())

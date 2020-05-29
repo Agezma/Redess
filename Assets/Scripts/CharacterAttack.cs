@@ -27,16 +27,16 @@ public class CharacterAttack
 
         Vector3 dir = ray - myPos.position;
 
-        if (Physics.Raycast(myPos.position, ray - myCam.transform.position,out hit))
+        if (Physics.Raycast(pos, ray - myCam.transform.position,out hit))
          {
-             dir = hit.point - myPos.position;
+             dir = hit.point - pos;
              if (hit.collider.gameObject.GetComponent<CharacterHead>())
              {
                 CharacterHead enemy = hit.collider.GetComponent<CharacterHead>();
                 enemy.TakeDamage(damage);
              }
          }
-        Debug.DrawRay(myPos.position, dir,Color.black, 2f);
+        Debug.DrawRay(pos , dir,Color.black, 2f);
         GameObject myBullet = PhotonNetwork.Instantiate(prefabBullet.name, pos, Quaternion.Euler(dir));
         myBullet.transform.forward = dir;
 

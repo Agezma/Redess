@@ -129,10 +129,8 @@ public class CharacterHead : MonoBehaviourPun
     public bool TakeDamage(float dmg)
     {
         if (!photonView.IsMine) return false;
-        currentHP -= dmg;
-        Debug.Log(currentHP + "Recibi daño");
-        onUI.UpdateLifeText(currentHP);
-        if (currentHP <= 0)
+        photonView.RPC("ReceiveDamage", RpcTarget.AllBuffered, dmg);
+        if (currentHP <= 0 && !isDead)
         {
             Die();
             return true;
@@ -143,6 +141,9 @@ public class CharacterHead : MonoBehaviourPun
     [PunRPC]
     void ReceiveDamage(float dmg)
     {
+        currentHP -= dmg;
+        onUI.UpdateLifeText(currentHP);
+        
     }
 
     bool Die()

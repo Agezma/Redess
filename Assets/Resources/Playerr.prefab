@@ -1330,7 +1330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4191576460695399133}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.008, y: 1.663, z: -3.548}
+  m_LocalPosition: {x: 0.625, y: 1.66, z: -3.55}
   m_LocalScale: {x: 0.25, y: 0.24885917, z: 0.49771833}
   m_Children: []
   m_Father: {fileID: 2937323801615404614}
@@ -1608,7 +1608,7 @@ MonoBehaviour:
   prefabBullet: {fileID: 4588061217975909506, guid: e0eaaf385c3e4df44bc20e19b0bab0d6,
     type: 3}
   myCam: {fileID: 797718600}
-  prefabGrenade: {fileID: 2223234805010920468, guid: eab77c0740115b941a4bb1d77f0515d2,
+  prefabGrenade: {fileID: 2223234805010920468, guid: e366580b48326b147ba944256027f971,
     type: 3}
   grenadePos: {fileID: 8297282419884591242}
   myAnim: {fileID: 1894290132907757097}
@@ -1744,10 +1744,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: ThrowGrenade
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Shoot
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -2778,22 +2778,22 @@ PrefabInstance:
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.033884306
+      value: 0.03378973
       objectReference: {fileID: 0}
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 4.412324e-11
+      value: -0.07459858
       objectReference: {fileID: 0}
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.635661e-10
+      value: -0.0025291103
       objectReference: {fileID: 0}
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99942577
+      value: 0.9966379
       objectReference: {fileID: 0}
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
@@ -2808,7 +2808,17 @@ PrefabInstance:
     - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 3.8840003
+      value: 3.8400002
+      objectReference: {fileID: 0}
+    - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -8.581
+      objectReference: {fileID: 0}
+    - target: {fileID: -5975033157549033438, guid: 1db28452358c4a349a361ceb9aaa71fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.57900006
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}
@@ -2889,6 +2899,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1db28452358c4a349a361ceb9aaa71fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2534866581884222612, guid: 1db28452358c4a349a361ceb9aaa71fe,
         type: 3}

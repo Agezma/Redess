@@ -11,22 +11,21 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     public Transform[] spawnPos;
 
     Player[] allPlayers;
-
+    
     public void Awake()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        GetPlayers();
-
+        GetSpawnPoint();
         for (int i = 0; i < allPlayers.Length; i++)
         {
-            PhotonNetwork.Instantiate(prefabPlayer.name, spawnPos[i].position, spawnPos[i].rotation);
+            if(PhotonNetwork.LocalPlayer.ActorNumber-1 == i)
+            {
+                PhotonNetwork.Instantiate(prefabPlayer.name, spawnPos[PhotonNetwork.LocalPlayer.ActorNumber-1].position, spawnPos[PhotonNetwork.LocalPlayer.ActorNumber-1].rotation);
+            }
         }
     }
 
-    void GetPlayers()
+    void GetSpawnPoint()
     {
         allPlayers = PhotonNetwork.PlayerList;
-
     }
 }
