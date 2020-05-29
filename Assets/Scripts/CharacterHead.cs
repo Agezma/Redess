@@ -61,7 +61,7 @@ public class CharacterHead : MonoBehaviourPun
 
     void Start()
     {
-        charAttack = new CharacterAttack(damage, range, transform);
+        charAttack = new CharacterAttack(damage, range, transform, myCam);
         anim = new PlayerAnimator(myAnim);
         myController = new CharacterInput();
         rb = GetComponent<Rigidbody>();
@@ -108,7 +108,7 @@ public class CharacterHead : MonoBehaviourPun
 
     void Shoot()
     {
-        charAttack.Shoot(weapon.position, weapon.rotation , prefabBullet);
+        charAttack.Shoot(weapon.position, prefabBullet);
         anim.SetTrigger("Shoot");
     }
 

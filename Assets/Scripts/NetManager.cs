@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class NetManager : MonoBehaviourPunCallbacks
 {
@@ -9,6 +10,7 @@ public class NetManager : MonoBehaviourPunCallbacks
     public Text Log;
     public Text PlayersCount;
     public int playersCount;
+    public int maxPlayers = 4;
 
     private void Awake()
     {
@@ -59,7 +61,11 @@ public class NetManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Log.text += "\nJoining";
+        Log.text += "\nJoined";
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
+        {
+            PhotonNetwork.LoadLevel("Level");
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -78,17 +84,18 @@ public class NetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(level);
     }
 
-    private void FixedUpdate()
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         if (PhotonNetwork.CurrentRoom != null)
         {
             playersCount = PhotonNetwork.CurrentRoom.PlayerCount;
             PlayersCount.text = playersCount.ToString();
-
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= 4)
+            var players = PhotonNetwork.CurrentRoom.Players;
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
             {
                 PhotonNetwork.LoadLevel("Level");
-            }
+            }           
         }
     }
 }

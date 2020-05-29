@@ -9,33 +9,36 @@ public class CharacterAttack
     float damage;
     float range;
     Transform myPos;
+    Camera myCam;
 
-    public CharacterAttack(float dmg, float rng, Transform pos)
+    public CharacterAttack(float dmg, float rng, Transform pos, Camera cam)
     {
         damage = dmg;
         range = rng;
         myPos = pos;
+        myCam = cam;
     }
 
-    public Bullet Shoot(Vector3 pos, Quaternion rot, Bullet prefabBullet)
+    public Bullet Shoot(Vector3 pos, Bullet prefabBullet)
     {
 
         RaycastHit hit;
-        Vector3 ray = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 100));
+        Vector3 ray = myCam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 100));
 
-        //Vector3 dir = ray - transform.position;
+        Vector3 dir = ray - myPos.position;
 
-        if (Physics.Raycast(myPos.position, myPos.forward,out hit))
+        if (Physics.Raycast(myPos.position, ray - myCam.transform.position,out hit))
          {
-            //dir = hit.point - transform.position;
+             dir = hit.point - myPos.position;
              if (hit.collider.gameObject.GetComponent<CharacterHead>())
              {
-                 CharacterHead enemy = hit.collider.GetComponent<CharacterHead>();
+                CharacterHead enemy = hit.collider.GetComponent<CharacterHead>();
                 enemy.TakeDamage(damage);
              }
          }
-        Debug.DrawRay(myPos.position, myPos.forward);
-        GameObject myBullet = PhotonNetwork.Instantiate(prefabBullet.name, pos, rot);
+        Debug.DrawRay(myPos.position, dir,Color.black, 2f);
+        GameObject myBullet = PhotonNetwork.Instantiate(prefabBullet.name, pos, Quaternion.Euler(dir));
+        myBullet.transform.forward = dir;
 
         return myBullet.GetComponent<Bullet>();
     }
