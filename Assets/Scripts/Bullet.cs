@@ -17,24 +17,24 @@ public class Bullet : Rewindable
     private void Start()
     {
         rb.velocity = transform.forward * speed;
-        shouldBeCapturingPosition = true;
         StartCoroutine(DestroyMe());
-    }
-
-    private void Update()
-    {
         
+        shouldBeCapturingPosition = true;
+        capturePosition = addPositionAlways();
+        StartCoroutine(capturePosition);
     }
-    private void FixedUpdate()
-    {
-        addNewPos(transform.position, transform.rotation, rb.velocity);
-    }
-
 
     IEnumerator DestroyMe()
     {
         yield return new WaitForSeconds(lifeSpan);
-        Destroy(gameObject);
+        DestroyObj();
+    }
+
+    void DestroyObj()
+    {
+        StopCoroutine(capturePosition);
+        shouldBeCapturingPosition = false;
+        //Destroy(gameObject);
     }
 
 }

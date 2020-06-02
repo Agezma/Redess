@@ -14,19 +14,16 @@ public class Granade : Rewindable
     public ParticleSystem explotion;
     public ParticleSystem impulse;
 
-
-    void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
-        shouldBeCapturingPosition = true;
-        StartCoroutine(Explode());
-    }
 
-    private void FixedUpdate()
-    {
-        addNewPos(transform.position, transform.rotation, rb.velocity);
+        StartCoroutine(Explode());
         
+        shouldBeCapturingPosition = true;
+        capturePosition = addPositionAlways();
+        StartCoroutine(capturePosition);
     }
 
     public IEnumerator Explode()
@@ -36,6 +33,7 @@ public class Granade : Rewindable
     }
     public void Explosion()
     {
+        //StopCoroutine(capturePosition);
         Collider[] myCols = Physics.OverlapSphere(transform.position, maxRange);
         explotion.Play();
         impulse.Play();

@@ -10,15 +10,30 @@ public abstract class Rewindable : MonoBehaviourPun
     List<Quaternion> myRot = new List<Quaternion>();
     List<Vector3> myVel = new List<Vector3>();
     protected Rigidbody rb;
-    
 
-    [SerializeField] int maxAmount = 100;
-    protected bool shouldBeCapturingPosition = true;
+
+    [SerializeField] float timeToRewind = 40;
+    [SerializeField] float rewindTime = 2;
+    float fps = 20;
+    public float timeBetweenSaves = 0f;
+    public bool shouldBeCapturingPosition = true;
     protected bool backingTime = false;
+
+    public IEnumerator capturePosition;
+
+    private void Awake()
+    {
+    }
+    private void Start()
+    {
+        timeBetweenSaves = 1 / fps;
+        timeToRewind *= fps;
+    }
 
     public virtual IEnumerator RewindTime()
     {
         if (backingTime) yield break;
+        shouldBeCapturingPosition = false;
         backingTime = true;
         /*Stack<Vector3> aux = new Stack<Vector3>();
         for (int i = 0; i < myPosList.Count; i++)
@@ -38,15 +53,13 @@ public abstract class Rewindable : MonoBehaviourPun
             Debug.Log("Backing");
             yield return new WaitForSeconds(0.1f);
         }*/
-        float aux = 2 / myPos.Count;
+        float aux = rewindTime / myPos.Count;
         for (int i = 0; i < myPos.Count; i++)
         {
             transform.position = myPos[myPos.Count - i - 1];
             transform.rotation = myRot[myRot.Count - i - 1];
             rb.velocity = Vector3.zero;
-
-            Debug.Log("rewinding");
-            yield return new WaitForSeconds(aux);
+            yield return new WaitForSeconds(timeBetweenSaves);
         }
         rb.velocity = myVel[0];
         /*for (int i = 0; i < mypos.Count; i++)
@@ -59,10 +72,11 @@ public abstract class Rewindable : MonoBehaviourPun
         myRot.Clear();
         myVel.Clear();
         backingTime = false;
+        shouldBeCapturingPosition = true;
     }
     public virtual void addNewPos(Vector3 pos, Quaternion rot, Vector3 velocity)
     {
-        if (myPos.Count > maxAmount)
+        if (myPos.Count >= timeToRewind)
         {
             //myPosList.Dequeue();
             //myRotList.Dequeue();
@@ -75,6 +89,22 @@ public abstract class Rewindable : MonoBehaviourPun
         myPos.Add(pos);
         myRot.Add(rot);
         myVel.Add(rb.velocity);
+    }
 
+    public IEnumerator addPositionAlways()
+    {
+        while (true)
+        {
+            if (shouldBeCapturingPosition)
+            {
+                addNewPos(transform.position, transform.rotation, rb.velocity);
+                yield return new WaitForSeconds(timeBetweenSaves);
+            }
+            else yield return new WaitForSeconds(timeBetweenSaves);
+        }
+    }
+
+    public void ClearRewindable()
+    {
     }
 }

@@ -1754,7 +1754,7 @@ MonoBehaviour:
   Log: {fileID: 718117159}
   PlayersCount: {fileID: 502978828}
   playersCount: 0
-  maxPlayers: 2
+  maxPlayers: 1
 --- !u!1 &1733115999
 GameObject:
   m_ObjectHideFlags: 0

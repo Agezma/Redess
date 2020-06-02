@@ -9682,7 +9682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7713169316987120702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.976, y: -0.015, z: -2.007}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 6763525814678585614}
@@ -9722,7 +9722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4a82b9088abe04798810458600d846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmount: 1000
+  timeToRewind: 40
+  rewindTime: 12
+  timeBetweenSaves: 0
+  shouldBeCapturingPosition: 1
   speed: 5
   lifeSpan: 5
   minRange: 10

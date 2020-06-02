@@ -15,7 +15,7 @@ public class CharacterHead : MonoBehaviourPun
 
     [SerializeField] float damage;
     [SerializeField] float range;
-    [SerializeField] float rewindCooldown;
+    [SerializeField] float rewindCooldown = 30f;
     [SerializeField] Transform weapon;
     [SerializeField] Bullet prefabBullet;
     [SerializeField] Camera myCam;
@@ -23,6 +23,7 @@ public class CharacterHead : MonoBehaviourPun
     [SerializeField] Granade prefabGrenade;
     [SerializeField] Transform grenadePos;
     [SerializeField] Animator myAnim;
+    public int grenadeCount = 3;
 
     [SerializeField] float maxHp;
     public Color[] colors = new Color[2];
@@ -33,7 +34,6 @@ public class CharacterHead : MonoBehaviourPun
     float currentRewindCD;
     [HideInInspector] public float kills;
     [HideInInspector] public float deaths;
-
 
     Rewindable currentRewindable;
 
@@ -80,18 +80,17 @@ public class CharacterHead : MonoBehaviourPun
 
         Move(myController.Horizontal(), myController.Vertical());
 
-        if (myController.Rewind() && !rewindInCD)
+        CooldownRewind();
+
+        if (myController.Rewind() && !rewindInCD && currentRewindable)
         {
-            StartCoroutine(currentRewindable.RewindTime());
-            rewindInCD = true;
-            currentRewindCD = rewindCooldown;
-            anim.SetTrigger("Rewind");
+            RewindTime();
         }
         if (myController.Shoot())
         {
             Shoot();
         }
-        if(myController.ThrowGranade())
+        if(myController.ThrowGranade() && grenadeCount > 0)
         {
             ThrowGrenadeAnim();
         }
@@ -108,8 +107,14 @@ public class CharacterHead : MonoBehaviourPun
 
     void Shoot()
     {
-        charAttack.Shoot(weapon.position, prefabBullet);
-        anim.SetTrigger("Shoot");
+        if (currentRewindable)
+        {
+            StopCoroutine(currentRewindable.capturePosition);
+            currentRewindable.ClearRewindable(); //primero stopeo el anterior
+            currentRewindable.shouldBeCapturingPosition = false;
+        }
+
+        currentRewindable = charAttack.Shoot(weapon.position, prefabBullet); //despues asigno el nuevo
     }
 
     public void ThrowGrenadeAnim()
@@ -118,12 +123,38 @@ public class CharacterHead : MonoBehaviourPun
     }
     public void ThrowGrenade()
     {
-        Granade myGranade = charAttack.ThrowGranade(grenadePos.position, grenadePos.rotation, prefabGrenade);
-        currentRewindable = myGranade;
+        if (currentRewindable)
+        {
+            currentRewindable.ClearRewindable(); 
+            StopCoroutine(currentRewindable.capturePosition);
+            currentRewindable.shouldBeCapturingPosition = false;
+        }
+        currentRewindable = charAttack.ThrowGranade(grenadePos.position, myCam.transform.rotation, prefabGrenade);
+        grenadeCount--;
+        onUI.UpdateGrenades(grenadeCount);
+    }
+
+    public void RewindTime()
+    {
+        StartCoroutine(currentRewindable.RewindTime());
+        rewindInCD = true;
+        currentRewindCD = rewindCooldown;
+        anim.SetTrigger("Rewind");
     }
 
     void CooldownRewind()
     {
+        if (rewindInCD)
+        {
+            currentRewindCD -= Time.deltaTime;
+
+            onUI.UpdateRewindCD( currentRewindCD, rewindCooldown);
+
+            if (currentRewindCD <= 0)
+            {
+                rewindInCD = false;
+            }
+        }
     }
 
     public bool TakeDamage(float dmg)

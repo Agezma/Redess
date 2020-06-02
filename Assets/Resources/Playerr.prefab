@@ -1612,6 +1612,7 @@ MonoBehaviour:
     type: 3}
   grenadePos: {fileID: 8297282419884591242}
   myAnim: {fileID: 1894290132907757097}
+  grenadeCount: 3
   maxHp: 100
   colors:
   - {r: 0.4117647, g: 0.6039216, b: 1, a: 0}
@@ -1636,6 +1637,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeText: {fileID: 0}
+  grenadeCounter: {fileID: 0}
+  rewindImage: {fileID: 0}
 --- !u!54 &2566293079050504059
 Rigidbody:
   m_ObjectHideFlags: 0
