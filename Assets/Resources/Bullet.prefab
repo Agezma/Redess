@@ -252,11 +252,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f0e2f32b8798d49b9a4d65b95a399a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 100
   timeToRewind: 100
   rewindTime: 2
+  fps: 20
   timeBetweenSaves: 0
   shouldBeCapturingPosition: 1
-  speed: 100
   lifeSpan: 5
 --- !u!114 &2128149546006276762
 MonoBehaviour:

@@ -6,28 +6,33 @@ using UnityEngine;
 
 public abstract class Rewindable : MonoBehaviourPun
 {
-    List<Vector3> myPos = new List<Vector3>();
-    List<Quaternion> myRot = new List<Quaternion>();
-    List<Vector3> myVel = new List<Vector3>();
+    protected List<Vector3> myPos = new List<Vector3>();
+    protected List<Quaternion> myRot = new List<Quaternion>();
+    protected List<Vector3> myVel = new List<Vector3>();
     protected Rigidbody rb;
 
+    [SerializeField] float speed = 2;
 
-    [SerializeField] float timeToRewind = 40;
-    [SerializeField] float rewindTime = 2;
-    float fps = 20;
+    [SerializeField] float timeToRewind = 2;
+    [SerializeField] protected float rewindTime = 2;
+    public float fps = 20;
     public float timeBetweenSaves = 0f;
     public bool shouldBeCapturingPosition = true;
     protected bool backingTime = false;
 
     public IEnumerator capturePosition;
-
-    private void Awake()
-    {
-    }
-    private void Start()
+    
+    public virtual void Start()
     {
         timeBetweenSaves = 1 / fps;
         timeToRewind *= fps;
+
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * speed;
+
+        shouldBeCapturingPosition = true;
+        capturePosition = addPositionAlways();
+        StartCoroutine(capturePosition);
     }
 
     public virtual IEnumerator RewindTime()

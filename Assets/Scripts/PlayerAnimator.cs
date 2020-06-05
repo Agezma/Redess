@@ -26,4 +26,8 @@ public class PlayerAnimator
     public void Shoot()
     {
     }
+    public void Respawn()
+    {
+        anim.Play("Move");
+    }
 }

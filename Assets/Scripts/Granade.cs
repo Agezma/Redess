@@ -4,36 +4,48 @@ using UnityEngine;
 
 public class Granade : Rewindable
 {
-    [SerializeField] float speed = 5;
     [SerializeField] float lifeSpan = 5f;
     [SerializeField] float minRange = 3;
     [SerializeField] float maxRange = 8f;
 
     [SerializeField] float explosionDamage = 5f;
 
-    public ParticleSystem explotion;
-    public ParticleSystem impulse;
+    [SerializeField] ParticleSystem explotion;
+    [SerializeField] ParticleSystem impulse;
+    [SerializeField] ParticleSystem rewindParticles;
+    [SerializeField] ParticleSystem rewindParticles2;
 
-    public void Start()
+    IEnumerator explosion;
+    float explosionTimer;
+
+    bool hasExploded = false;
+
+    public override void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * speed;
-
-        StartCoroutine(Explode());
-        
-        shouldBeCapturingPosition = true;
-        capturePosition = addPositionAlways();
-        StartCoroutine(capturePosition);
+        base.Start();
+               
+        explosionTimer = lifeSpan;
+        explosion = Explode(explosionTimer);
+        StartCoroutine(explosion);        
     }
 
-    public IEnumerator Explode()
+    private void Update()
     {
-        yield return new WaitForSeconds(3f);
+        if (!hasExploded && !backingTime)
+        {
+            explosionTimer -= Time.deltaTime;
+        }
+    }
+
+    public IEnumerator Explode(float time)
+    {
+        yield return new WaitForSeconds(time);
         Explosion();
     }
     public void Explosion()
     {
         //StopCoroutine(capturePosition);
+        hasExploded = true;
         Collider[] myCols = Physics.OverlapSphere(transform.position, maxRange);
         explotion.Play();
         impulse.Play();
@@ -56,5 +68,41 @@ public class Granade : Rewindable
                 current.rb.AddForce(new Vector3(force.x, force.y / 5, force.z));
             }
         }
+    }
+
+    public override IEnumerator RewindTime()
+    {
+        if (backingTime) yield break;
+
+        rewindParticles2.Play();
+        StopCoroutine(explosion);
+        shouldBeCapturingPosition = false;
+        backingTime = true;
+        rewindParticles.Play();
+        //float aux = rewindTime / myPos.Count;
+
+        for (int i = 0; i < myPos.Count; i++)
+        {
+            transform.position = myPos[myPos.Count - i - 1];
+            transform.rotation = myRot[myRot.Count - i - 1];
+            rb.velocity = Vector3.zero;
+            yield return new WaitForSeconds(timeBetweenSaves);
+        }
+        rb.velocity = myVel[0];
+        /*for (int i = 0; i < mypos.Count; i++)
+        {
+            transform.position = mypos[i];
+
+            yield return new WaitForSeconds(aux);
+        }*/
+        StartCoroutine(Explode(explosionTimer + myPos.Count*timeBetweenSaves));
+        Debug.Log(myPos.Count * timeBetweenSaves);
+        myPos.Clear();
+        myRot.Clear();
+        myVel.Clear();
+        rewindParticles.Stop();
+        backingTime = false;
+        shouldBeCapturingPosition = true;
+        //rewindParticles.gameObject.SetActive(false);
     }
 }

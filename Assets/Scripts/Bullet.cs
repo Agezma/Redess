@@ -6,22 +6,13 @@ using Photon.Realtime;
 
 public class Bullet : Rewindable
 {
-    [SerializeField] float speed = 5;
     [SerializeField] float lifeSpan = 5f;
-
-    private void Awake()
+    
+    public override void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        base.Start();
 
-    private void Start()
-    {
-        rb.velocity = transform.forward * speed;
-        StartCoroutine(DestroyMe());
-        
-        shouldBeCapturingPosition = true;
-        capturePosition = addPositionAlways();
-        StartCoroutine(capturePosition);
+        StartCoroutine(DestroyMe());        
     }
 
     IEnumerator DestroyMe()

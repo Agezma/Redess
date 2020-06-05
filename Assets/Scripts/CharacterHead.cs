@@ -47,6 +47,8 @@ public class CharacterHead : MonoBehaviourPun
 
     UpdateOnUI onUI;
 
+    PlayerInstantiator instantiator;
+
     private void Awake()
     {
         if (photonView.IsMine)
@@ -71,17 +73,12 @@ public class CharacterHead : MonoBehaviourPun
 
         isDead = false;
         currentHP = maxHp;
+        instantiator = FindObjectOfType<PlayerInstantiator>();
        
     }
-
-    void FixedUpdate()
+    private void Update()
     {
-        if (!photonView.IsMine) return;
-
-        Move(myController.Horizontal(), myController.Vertical());
-
-        CooldownRewind();
-
+        if (!photonView.IsMine || isDead) return;
         if (myController.Rewind() && !rewindInCD && currentRewindable)
         {
             RewindTime();
@@ -90,10 +87,19 @@ public class CharacterHead : MonoBehaviourPun
         {
             Shoot();
         }
-        if(myController.ThrowGranade() && grenadeCount > 0)
+        if (myController.ThrowGranade() && grenadeCount > 0)
         {
             ThrowGrenadeAnim();
         }
+
+    }
+    void FixedUpdate()
+    {
+        if (!photonView.IsMine || isDead) return;
+
+        Move(myController.Horizontal(), myController.Vertical());
+
+        CooldownRewind();        
     }
 
 
@@ -113,16 +119,17 @@ public class CharacterHead : MonoBehaviourPun
             currentRewindable.ClearRewindable(); //primero stopeo el anterior
             currentRewindable.shouldBeCapturingPosition = false;
         }
-
         currentRewindable = charAttack.Shoot(weapon.position, prefabBullet); //despues asigno el nuevo
     }
 
     public void ThrowGrenadeAnim()
     {
         anim.SetTrigger("ThrowGrenade");
+        grenadeCount--;
     }
     public void ThrowGrenade()
     {
+        onUI.UpdateGrenades(grenadeCount);
         if (currentRewindable)
         {
             currentRewindable.ClearRewindable(); 
@@ -130,8 +137,7 @@ public class CharacterHead : MonoBehaviourPun
             currentRewindable.shouldBeCapturingPosition = false;
         }
         currentRewindable = charAttack.ThrowGranade(grenadePos.position, myCam.transform.rotation, prefabGrenade);
-        grenadeCount--;
-        onUI.UpdateGrenades(grenadeCount);
+       
     }
 
     public void RewindTime()
@@ -181,6 +187,22 @@ public class CharacterHead : MonoBehaviourPun
     {
         isDead = true;
         anim.SetTrigger("Die");
+        StartCoroutine(Respawner());
         return isDead;
+
+    }
+
+    IEnumerator Respawner()
+    {
+        yield return new WaitForSeconds(2f);
+        Respawn();
+    }
+    void Respawn()
+    {
+        currentHP = maxHp;
+        onUI.UpdateLifeText(currentHP);
+        isDead = false;
+        anim.Respawn();
+        transform.position = instantiator.Respawn().position;
     }
 }
