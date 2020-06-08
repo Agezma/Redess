@@ -21,7 +21,9 @@ public abstract class Rewindable : MonoBehaviourPun
     protected bool backingTime = false;
 
     public IEnumerator capturePosition;
-    
+    [HideInInspector] public CharacterHead owner;
+
+
     public virtual void Start()
     {
         timeBetweenSaves = 1 / fps;

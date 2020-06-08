@@ -9,31 +9,22 @@ public class CameraRotator : MonoBehaviour
     float speed = 5f;
 
     public float timeLerp = 0.1f;
-    public GameObject myWeapon;
     public Camera myCamera;
     [SerializeField] float xAxisClamp;
     PhotonView phView;
-    public IController controller;
 
     public float mouseSensivity;
 
     private void Start()
     {
-        controller = new CharacterInput();
-        phView = GetComponentInParent<PhotonView>();
+        phView = GetComponent<PhotonView>();
     }
 
-    void FixedUpdate()
+    
+    public void RotateCamera(float mouseHorizontal, float mouseVertical)
     {
-        if (!phView.IsMine) return;
-
-        RotateCamera();
-    }
-
-    void RotateCamera()
-    {
-        float mouseX = controller.HorizontalRotation() * mouseSensivity;
-        float mouseY = controller.VerticalRotation() * mouseSensivity;
+        float mouseX = mouseHorizontal * mouseSensivity;
+        float mouseY = mouseVertical * mouseSensivity;
 
         Vector3 rotateCameraVector3 = myCamera.transform.rotation.eulerAngles;
         Vector3 rotateBodyVector3 = transform.rotation.eulerAngles;

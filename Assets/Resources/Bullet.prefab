@@ -258,6 +258,7 @@ MonoBehaviour:
   fps: 20
   timeBetweenSaves: 0
   shouldBeCapturingPosition: 1
+  owner: {fileID: 0}
   lifeSpan: 5
 --- !u!114 &2128149546006276762
 MonoBehaviour:

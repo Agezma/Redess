@@ -12,6 +12,9 @@ public class NetManager : MonoBehaviourPunCallbacks
     public int playersCount;
     public int maxPlayers = 4;
 
+    public PlayerInstantiator server;
+    public CharacterInput controller;
+
     private void Awake()
     {
         Connect();
@@ -26,6 +29,13 @@ public class NetManager : MonoBehaviourPunCallbacks
     }
 
     #region Net Events
+
+    public override void OnCreatedRoom()
+    {
+        PhotonNetwork.Instantiate(server.name, Vector3.zero, Quaternion.identity);
+        GameObject current = PhotonNetwork.Instantiate(controller.name, Vector3.zero, Quaternion.identity);
+        current.GetComponent<CharacterInput>().myChar = server.dicChars[PhotonNetwork.LocalPlayer];
+    }
     public override void OnConnectedToMaster()
     {
         JoinRoomScene("Menu");
@@ -59,14 +69,19 @@ public class NetManager : MonoBehaviourPunCallbacks
         }
     }
 
+
     public override void OnJoinedRoom()
     {
-        Log.text += "\nJoined";
+        Log.text += "\nWaiting for players";
         if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
         {
-            PhotonNetwork.LoadLevel("Level");
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
+        //if(PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
+        //{
+        GameObject current = PhotonNetwork.Instantiate(controller.name, Vector3.zero, Quaternion.identity);
+        current.GetComponent<CharacterInput>().myChar = server.dicChars[PhotonNetwork.LocalPlayer];
+        //}
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -95,9 +110,8 @@ public class NetManager : MonoBehaviourPunCallbacks
             var players = PhotonNetwork.CurrentRoom.Players;
             if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
             {
-                PhotonNetwork.LoadLevel("Level");
                 PhotonNetwork.CurrentRoom.IsOpen = false;
-            }           
+            }
         }
     }
 }

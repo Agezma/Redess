@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 public class CharacterHead : MonoBehaviourPun
 {
-    IController myController;
     [HideInInspector]
     public Rigidbody rb;
     
@@ -29,13 +28,13 @@ public class CharacterHead : MonoBehaviourPun
     public Color[] colors = new Color[2];
     public float currentHP { get; private set; }
 
-    bool rewindInCD = false;
+    [HideInInspector] public bool rewindInCD = false;
     bool rewinding;
     float currentRewindCD;
     [HideInInspector] public float kills;
     [HideInInspector] public float deaths;
 
-    Rewindable currentRewindable;
+    [HideInInspector] public Rewindable currentRewindable;
 
     CharacterAttack charAttack;
     PlayerAnimator anim;
@@ -43,14 +42,14 @@ public class CharacterHead : MonoBehaviourPun
     [SerializeField] GameObject[] modelsToHide;
     [SerializeField] GameObject myWeaponModel;
 
-    bool isDead = false;
+    [HideInInspector] public bool isDead = false;
 
     UpdateOnUI onUI;
 
-    PlayerInstantiator instantiator;
-
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         if (photonView.IsMine)
         {
             foreach (var item in modelsToHide)
@@ -58,52 +57,30 @@ public class CharacterHead : MonoBehaviourPun
                 item.gameObject.SetActive(false);
             }
             myWeaponModel.SetActive(true);
-        }   
-    }
-
-    void Start()
-    {
+        }
         charAttack = new CharacterAttack(damage, range, transform, myCam);
         anim = new PlayerAnimator(myAnim);
-        myController = new CharacterInput();
         rb = GetComponent<Rigidbody>();
-        if(photonView.IsMine)
+        if (photonView.IsMine)
             myCam.gameObject.SetActive(true);
         onUI = GetComponent<UpdateOnUI>();
-
+        grenadeCount = 3;
         isDead = false;
         currentHP = maxHp;
-        instantiator = FindObjectOfType<PlayerInstantiator>();
-       
     }
+
+   
     private void Update()
     {
         if (!photonView.IsMine || isDead) return;
-        if (myController.Rewind() && !rewindInCD && currentRewindable)
-        {
-            RewindTime();
-        }
-        if (myController.Shoot())
-        {
-            Shoot();
-        }
-        if (myController.ThrowGranade() && grenadeCount > 0)
-        {
-            ThrowGrenadeAnim();
-        }
+        
+        CooldownRewind();
 
     }
-    void FixedUpdate()
-    {
-        if (!photonView.IsMine || isDead) return;
-
-        Move(myController.Horizontal(), myController.Vertical());
-
-        CooldownRewind();        
-    }
+  
 
 
-    void Move(float velX, float velY)
+    public void Move(float velX, float velY)
     {
         Vector3 dir = (transform.right * velX + transform.forward * velY).normalized * speed;
         rb.velocity = dir;
@@ -111,7 +88,7 @@ public class CharacterHead : MonoBehaviourPun
         anim.SetVertical(velY);
     }    
 
-    void Shoot()
+    public void Shoot()
     {
         if (currentRewindable)
         {
@@ -120,6 +97,7 @@ public class CharacterHead : MonoBehaviourPun
             currentRewindable.shouldBeCapturingPosition = false;
         }
         currentRewindable = charAttack.Shoot(weapon.position, prefabBullet); //despues asigno el nuevo
+        currentRewindable.owner = this;
     }
 
     public void ThrowGrenadeAnim()
@@ -165,8 +143,8 @@ public class CharacterHead : MonoBehaviourPun
 
     public bool TakeDamage(float dmg)
     {
-        if (!photonView.IsMine) return false;
-        photonView.RPC("ReceiveDamage", RpcTarget.AllBuffered, dmg);
+        currentHP -= dmg;
+        onUI.UpdateLifeText(currentHP);
         if (currentHP <= 0 && !isDead)
         {
             Die();
@@ -174,14 +152,7 @@ public class CharacterHead : MonoBehaviourPun
         }
         else return false;
     }
-
-    [PunRPC]
-    void ReceiveDamage(float dmg)
-    {
-        currentHP -= dmg;
-        onUI.UpdateLifeText(currentHP);
-        
-    }
+   
 
     bool Die()
     {
@@ -203,6 +174,6 @@ public class CharacterHead : MonoBehaviourPun
         onUI.UpdateLifeText(currentHP);
         isDead = false;
         anim.Respawn();
-        transform.position = instantiator.Respawn().position;
+        PlayerInstantiator.Instance.RequestRespawn(PhotonNetwork.LocalPlayer, transform);
     }
 }

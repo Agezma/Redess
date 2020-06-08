@@ -1617,13 +1617,16 @@ MonoBehaviour:
   colors:
   - {r: 0.4117647, g: 0.6039216, b: 1, a: 0}
   - {r: 0.7176471, g: 0.34509805, b: 0.21176471, a: 0}
+  rewindInCD: 0
   kills: 0
   deaths: 0
+  currentRewindable: {fileID: 0}
   modelsToHide:
   - {fileID: 7388916761876725439}
   - {fileID: 5747809470361387277}
   - {fileID: 801501844608281496}
   myWeaponModel: {fileID: 5662268382573500872}
+  isDead: 0
 --- !u!114 &-3669624242582184987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,7 +1671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLerp: 0.1
-  myWeapon: {fileID: 0}
   myCamera: {fileID: 797718600}
   xAxisClamp: 90
   mouseSensivity: 9

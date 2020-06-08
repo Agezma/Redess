@@ -14568,6 +14568,7 @@ MonoBehaviour:
   fps: 20
   timeBetweenSaves: 0
   shouldBeCapturingPosition: 1
+  owner: {fileID: 0}
   lifeSpan: 5
   minRange: 10
   maxRange: 20
