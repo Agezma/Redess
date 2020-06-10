@@ -62,8 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\canvasreda.cs" />
     <Compile Include="Assets\GetHit.cs" />
+    <Compile Include="Assets\KeepInScene.cs" />
     <Compile Include="Assets\Main.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />

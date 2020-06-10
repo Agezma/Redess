@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class canvasreda : MonoBehaviour
+public class KeepInScene : MonoBehaviour
 {
-    public static canvasreda Instance;
+    public static KeepInScene Instance;
 
     void Start()
     {
@@ -18,9 +18,4 @@ public class canvasreda : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

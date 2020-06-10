@@ -17,7 +17,7 @@ public class UpdateOnUI : MonoBehaviour
         lifeText = Main.instance.GetLifeText();
         grenadeCounter = Main.instance.GetGrenadeText();
         rewindImage = Main.instance.GetRewindImg();
-
+        
         myChar = GetComponent<CharacterHead>();
     }
 
@@ -28,7 +28,7 @@ public class UpdateOnUI : MonoBehaviour
     
     public void UpdateRewindCD(float currentCD, float maxCd)
     {
-        rewindImage.fillAmount = currentCD / maxCd;
+       rewindImage.fillAmount = currentCD / maxCd;
     }
     public void UpdateGrenades(int grenadeAmmount)
     {

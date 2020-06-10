@@ -19,6 +19,8 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     public Dictionary<Player, CharacterHead> dicChars = new Dictionary<Player, CharacterHead>();
     public Dictionary<Player, CameraRotator> dicCam = new Dictionary<Player, CameraRotator>();
 
+    public CharacterInput controller;
+
     public void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -36,14 +38,15 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
         return PhotonNetwork.PlayerList;
     }
 
-    public void RequestRespawn(Player player, Transform transformToMove) //Para cada spawn, calcular la distancia a los players, el q tenga el minimo mas lejos es el q queda.
+    public void RequestRespawn(Player player)//Para cada spawn, calcular la distancia a los players, el q tenga el minimo mas lejos es el q queda.
     {
-        photonView.RPC("Respawn", server, player, transformToMove);
+        photonView.RPC("Respawn", server, player);
     }
     [PunRPC]
-    void Respawn(Transform transf)
+    void Respawn(Player player)
     {
         Transform current = spawnPos[0];
+        allPlayers = GetCurrentPlayersList();
         float currentDist = 0;
         float minDist = 0;
         for (int i = 0; i < spawnPos.Length; i++)
@@ -58,8 +61,8 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
                 }
             }
         }
-        transf.position = current.position;
-        transf.rotation = current.rotation;
+        dicChars[player].transform.position = current.position;
+        dicChars[player].transform.rotation = current.rotation;
     }
 
 
@@ -84,15 +87,51 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
         }
         Instance = this;
         server = serverPlayer;
-
-        PhotonNetwork.LoadLevel(sceneName);
+        LoadLevel("Level");
         var playerLocal = PhotonNetwork.LocalPlayer;
 
-        //if (serverPlayer != PhotonNetwork.LocalPlayer)
-        //
-        photonView.RPC("AddPlayer", server, playerLocal);
-        //
+        if (serverPlayer != PhotonNetwork.LocalPlayer)
+        {
+            photonView.RPC("AddPlayer", server, playerLocal);
+            photonView.RPC("AddController", playerLocal);
+        }
     }
+
+    IEnumerator WaitForLoad(string sceneName)
+    {
+        while(PhotonNetwork.CurrentRoom.PlayerCount < PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        PhotonNetwork.LoadLevel(sceneName);
+    }
+
+    [PunRPC]
+    void AddController()
+    {
+        StartCoroutine(WaitForChar());
+    }
+
+    IEnumerator WaitForChar()
+    {
+        while (dicChars.ContainsKey(PhotonNetwork.LocalPlayer))
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        GameObject current = Instantiate(controller.gameObject, Vector3.zero, Quaternion.identity);
+        current.GetComponent<CharacterInput>().myChar = dicChars[PhotonNetwork.LocalPlayer];
+    }   
+
+    public void LoadLevel(string scene)
+    {
+        photonView.RPC("LoadLevelToAll", RpcTarget.AllBuffered, scene);
+    }
+    [PunRPC]
+    void LoadLevelToAll(string scene)
+    {
+        StartCoroutine(WaitForLoad(scene));
+    }
+
     [PunRPC]
     void AddPlayer(Player player)
     {
@@ -106,10 +145,28 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
             yield return new WaitForEndOfFrame();
         }
         CharacterHead character = PhotonNetwork.Instantiate(prefabPlayer.name, Vector3.zero, Quaternion.identity).GetComponent<CharacterHead>();
+       
+        character.onUI.lifeText = Main.instance.GetLifeText();
+        character.onUI.grenadeCounter = Main.instance.GetGrenadeText();
+        character.onUI.rewindImage = Main.instance.GetRewindImg();
         dicChars.Add(player, character);
         CameraRotator cam = character.GetComponent<CameraRotator>();
         dicCam.Add(player, cam);
 
+    }
+
+    public void RequestTurnModel(Player player)
+    {
+        photonView.RPC("TurnModel", player, player);
+    }
+
+    [PunRPC]
+    void TurnModel(Player player)
+    {
+        if (dicChars.ContainsKey(player))
+        {
+            dicChars[player].TurnModel();
+        }
     }
 
     #region Move
@@ -120,7 +177,7 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     [PunRPC]
     void Move(Player player, float velX, float velY)
     {
-        if (dicChars.ContainsKey(player))
+        if (dicChars.ContainsKey(player) && !dicChars[player].isDead)
         {
             dicChars[player].Move(velX, velY);
         }
@@ -150,7 +207,7 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     [PunRPC]
     void Rewind(Player player)
     {
-        if (dicChars.ContainsKey(player))
+        if (dicChars.ContainsKey(player) && !dicChars[player].rewindInCD && dicChars[player].currentRewindable && !dicChars[player].isDead)
         {
             dicChars[player].RewindTime();
         }
@@ -165,7 +222,7 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     [PunRPC]
     void Shoot(Player player)
     {
-        if (dicChars.ContainsKey(player))
+        if (dicChars.ContainsKey(player) && !dicChars[player].isDead)
         {
             dicChars[player].Shoot();
         }
@@ -180,7 +237,7 @@ public class PlayerInstantiator : MonoBehaviourPunCallbacks
     [PunRPC]
     void ThrowGrenade(Player player)
     {
-        if (dicChars.ContainsKey(player))
+        if (dicChars.ContainsKey(player) && dicChars[player].grenadeCount > 0 && !dicChars[player].isDead)
         {
             dicChars[player].ThrowGrenadeAnim();
         }

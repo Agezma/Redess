@@ -8,7 +8,7 @@ public class CharacterHead : MonoBehaviourPun
 {
     [HideInInspector]
     public Rigidbody rb;
-    
+
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
 
@@ -31,8 +31,8 @@ public class CharacterHead : MonoBehaviourPun
     [HideInInspector] public bool rewindInCD = false;
     bool rewinding;
     float currentRewindCD;
-    [HideInInspector] public float kills;
-    [HideInInspector] public float deaths;
+    [HideInInspector] public int kills;
+    [HideInInspector] public int deaths;
 
     [HideInInspector] public Rewindable currentRewindable;
 
@@ -44,40 +44,43 @@ public class CharacterHead : MonoBehaviourPun
 
     [HideInInspector] public bool isDead = false;
 
-    UpdateOnUI onUI;
+
+    public UpdateOnUI onUI;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
-        if (photonView.IsMine)
-        {
-            foreach (var item in modelsToHide)
-            {
-                item.gameObject.SetActive(false);
-            }
-            myWeaponModel.SetActive(true);
-        }
         charAttack = new CharacterAttack(damage, range, transform, myCam);
         anim = new PlayerAnimator(myAnim);
         rb = GetComponent<Rigidbody>();
-        if (photonView.IsMine)
-            myCam.gameObject.SetActive(true);
         onUI = GetComponent<UpdateOnUI>();
         grenadeCount = 3;
         isDead = false;
         currentHP = maxHp;
+        kills = deaths = 0;
     }
 
-   
+    public void TurnModel()
+    {
+        myCam.gameObject.SetActive(true);
+
+        myWeaponModel.SetActive(true);
+
+        foreach (var item in modelsToHide)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+
     private void Update()
     {
-        if (!photonView.IsMine || isDead) return;
-        
-        CooldownRewind();
+        if (isDead) return;
 
+        CooldownRewind();
     }
-  
+
 
 
     public void Move(float velX, float velY)
@@ -86,7 +89,7 @@ public class CharacterHead : MonoBehaviourPun
         rb.velocity = dir;
         anim.SetHorizontal(velX);
         anim.SetVertical(velY);
-    }    
+    }
 
     public void Shoot()
     {
@@ -110,12 +113,12 @@ public class CharacterHead : MonoBehaviourPun
         onUI.UpdateGrenades(grenadeCount);
         if (currentRewindable)
         {
-            currentRewindable.ClearRewindable(); 
+            currentRewindable.ClearRewindable();
             StopCoroutine(currentRewindable.capturePosition);
             currentRewindable.shouldBeCapturingPosition = false;
         }
         currentRewindable = charAttack.ThrowGranade(grenadePos.position, myCam.transform.rotation, prefabGrenade);
-       
+
     }
 
     public void RewindTime()
@@ -132,7 +135,7 @@ public class CharacterHead : MonoBehaviourPun
         {
             currentRewindCD -= Time.deltaTime;
 
-            onUI.UpdateRewindCD( currentRewindCD, rewindCooldown);
+            onUI.UpdateRewindCD(currentRewindCD, rewindCooldown);
 
             if (currentRewindCD <= 0)
             {
@@ -152,7 +155,7 @@ public class CharacterHead : MonoBehaviourPun
         }
         else return false;
     }
-   
+
 
     bool Die()
     {
@@ -174,6 +177,6 @@ public class CharacterHead : MonoBehaviourPun
         onUI.UpdateLifeText(currentHP);
         isDead = false;
         anim.Respawn();
-        PlayerInstantiator.Instance.RequestRespawn(PhotonNetwork.LocalPlayer, transform);
+        PlayerInstantiator.Instance.RequestRespawn(PhotonNetwork.LocalPlayer);
     }
 }

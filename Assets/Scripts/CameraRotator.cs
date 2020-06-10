@@ -11,16 +11,9 @@ public class CameraRotator : MonoBehaviour
     public float timeLerp = 0.1f;
     public Camera myCamera;
     [SerializeField] float xAxisClamp;
-    PhotonView phView;
-
+   
     public float mouseSensivity;
-
-    private void Start()
-    {
-        phView = GetComponent<PhotonView>();
-    }
-
-    
+           
     public void RotateCamera(float mouseHorizontal, float mouseVertical)
     {
         float mouseX = mouseHorizontal * mouseSensivity;

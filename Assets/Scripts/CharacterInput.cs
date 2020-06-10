@@ -18,17 +18,14 @@ public class CharacterInput : MonoBehaviourPun, IController
     }
     public void Start()
     {
-        grenadeCount = myChar.grenadeCount;
-        rewindInCD = myChar.rewindInCD;
-        currentRewindable = myChar.currentRewindable;
-        isDead = myChar.isDead;
+        PlayerInstantiator.Instance.RequestTurnModel(PhotonNetwork.LocalPlayer);
     }
 
 
     public void Update()
     {
-        if (!photonView.IsMine || isDead) return;
-        if (Rewind() && !rewindInCD && currentRewindable)
+        if (myChar.isDead) return;
+        if (Rewind() && !myChar.rewindInCD && myChar.currentRewindable)
         {
             PlayerInstantiator.Instance.RequestRewind(PhotonNetwork.LocalPlayer);
         }
@@ -36,7 +33,7 @@ public class CharacterInput : MonoBehaviourPun, IController
         {
             PlayerInstantiator.Instance.RequestShoot(PhotonNetwork.LocalPlayer);
         }
-        if (ThrowGranade() && grenadeCount > 0)
+        if (ThrowGranade() && myChar.grenadeCount > 0)
         {
             PlayerInstantiator.Instance.RequestThrowGrenade(PhotonNetwork.LocalPlayer);
         }
@@ -45,7 +42,7 @@ public class CharacterInput : MonoBehaviourPun, IController
 
     void FixedUpdate()
     {
-        if (!photonView.IsMine || isDead) return;
+        if (myChar.isDead) return;
 
         PlayerInstantiator.Instance.RequestMove(PhotonNetwork.LocalPlayer, Horizontal(), Vertical());
     }

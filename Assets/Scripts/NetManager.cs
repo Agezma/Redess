@@ -13,7 +13,6 @@ public class NetManager : MonoBehaviourPunCallbacks
     public int maxPlayers = 4;
 
     public PlayerInstantiator server;
-    public CharacterInput controller;
 
     private void Awake()
     {
@@ -33,8 +32,6 @@ public class NetManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         PhotonNetwork.Instantiate(server.name, Vector3.zero, Quaternion.identity);
-        GameObject current = PhotonNetwork.Instantiate(controller.name, Vector3.zero, Quaternion.identity);
-        current.GetComponent<CharacterInput>().myChar = server.dicChars[PhotonNetwork.LocalPlayer];
     }
     public override void OnConnectedToMaster()
     {
@@ -59,7 +56,10 @@ public class NetManager : MonoBehaviourPunCallbacks
     {
         Log.text = "\nNo Rooms Active, Creating One...";
 
-        if (PhotonNetwork.CreateRoom(roomName.text, new RoomOptions(), TypedLobby.Default))
+        RoomOptions option = new RoomOptions();
+        option.MaxPlayers = (byte)maxPlayers;
+
+        if (PhotonNetwork.CreateRoom(roomName.text, option, TypedLobby.Default))
         {
             Log.text += "\nRoom Created...";
         }
@@ -73,14 +73,12 @@ public class NetManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Log.text += "\nWaiting for players";
-        if (PhotonNetwork.CurrentRoom.PlayerCount >= maxPlayers)
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= PhotonNetwork.CurrentRoom.MaxPlayers)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
         //if(PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
         //{
-        GameObject current = PhotonNetwork.Instantiate(controller.name, Vector3.zero, Quaternion.identity);
-        current.GetComponent<CharacterInput>().myChar = server.dicChars[PhotonNetwork.LocalPlayer];
         //}
     }
 
