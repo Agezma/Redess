@@ -253,9 +253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  timeToRewind: 100
+  timeToRewind: 5
   rewindTime: 2
-  fps: 20
+  fps: 30
   timeBetweenSaves: 0
   shouldBeCapturingPosition: 1
   owner: {fileID: 0}

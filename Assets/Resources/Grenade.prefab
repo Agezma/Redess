@@ -14529,7 +14529,7 @@ Transform:
   - {fileID: 1974096860}
   - {fileID: 8814380045152715241}
   - {fileID: 297828726824718873}
-  - {fileID: 4631286144073237964}
+  - {fileID: 2248990956382477777}
   - {fileID: 468261441487078444}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -14564,8 +14564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   timeToRewind: 3
-  rewindTime: 12
-  fps: 20
+  rewindTime: 3
+  fps: 30
   timeBetweenSaves: 0
   shouldBeCapturingPosition: 1
   owner: {fileID: 0}
@@ -14575,7 +14575,7 @@ MonoBehaviour:
   explosionDamage: 120
   explotion: {fileID: 4345211435925992363}
   impulse: {fileID: 4153587230858671111}
-  rewindParticles: {fileID: 4631286144073237965}
+  rewindParticles: {fileID: 2248990956382477466}
   rewindParticles2: {fileID: 365030173375499870}
 --- !u!114 &1861484397222631027
 MonoBehaviour:
@@ -19557,13 +19557,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7095116d1e144464db556588cbeb9ebc, type: 3}
---- !u!4 &4631286144073237964 stripped
+--- !u!4 &2248990956382477777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6878025147560942199, guid: 7095116d1e144464db556588cbeb9ebc,
     type: 3}
   m_PrefabInstance: {fileID: 2248990956382478267}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &4631286144073237965 stripped
+--- !u!198 &2248990956382477466 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6878025147560942198, guid: 7095116d1e144464db556588cbeb9ebc,
     type: 3}

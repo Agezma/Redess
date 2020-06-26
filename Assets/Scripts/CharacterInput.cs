@@ -12,19 +12,31 @@ public class CharacterInput : MonoBehaviourPun, IController
     Rewindable currentRewindable;
     bool isDead;
 
+    ScoreManager scoreboard;
+
     public void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
     public void Start()
     {
+        if (!photonView.IsMine) return;
+
+        PlayerInstantiator.Instance.RequestChar(PhotonNetwork.LocalPlayer);
+
+        scoreboard = Main.instance.GetScoreboard();
+
         PlayerInstantiator.Instance.RequestTurnModel(PhotonNetwork.LocalPlayer);
     }
-
-
+    public void SetChar(CharacterHead head)
+    {
+        myChar = head;
+    }
     public void Update()
     {
-        if (myChar.isDead) return;
+
+        if (!photonView.IsMine || !myChar || myChar.isDead) return;
+
         if (Rewind() && !myChar.rewindInCD && myChar.currentRewindable)
         {
             PlayerInstantiator.Instance.RequestRewind(PhotonNetwork.LocalPlayer);
@@ -38,11 +50,19 @@ public class CharacterInput : MonoBehaviourPun, IController
             PlayerInstantiator.Instance.RequestThrowGrenade(PhotonNetwork.LocalPlayer);
         }
         PlayerInstantiator.Instance.RequestMoveCamera(PhotonNetwork.LocalPlayer, HorizontalRotation(), VerticalRotation());
+
+        if (OpenScoreboard())
+        {
+            scoreboard.gameObject.SetActive(true);
+        }else if (CloseScoreboard())
+        {
+            scoreboard.gameObject.SetActive(false);
+        }
     }
 
     void FixedUpdate()
     {
-        if (myChar.isDead) return;
+        if (!myChar || myChar.isDead) return;
 
         PlayerInstantiator.Instance.RequestMove(PhotonNetwork.LocalPlayer, Horizontal(), Vertical());
     }
@@ -85,5 +105,14 @@ public class CharacterInput : MonoBehaviourPun, IController
         return Input.GetKeyDown(KeyCode.E);
     }
 
-    
+    public bool OpenScoreboard()
+    {
+        return Input.GetKeyDown(KeyCode.Tab);
+    }
+
+    public bool CloseScoreboard()
+    {
+        return Input.GetKeyUp(KeyCode.Tab);
+    }
+
 }

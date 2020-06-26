@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,14 +80,13 @@ public class Granade : Rewindable
         shouldBeCapturingPosition = false;
         backingTime = true;
         rewindParticles.Play();
-        //float aux = rewindTime / myPos.Count;
-
+        float aux = timeToRewind / myPos.Count;
         for (int i = 0; i < myPos.Count; i++)
         {
             transform.position = myPos[myPos.Count - i - 1];
             transform.rotation = myRot[myRot.Count - i - 1];
             rb.velocity = Vector3.zero;
-            yield return new WaitForSeconds(timeBetweenSaves);
+            yield return new WaitForSeconds(aux);
         }
         rb.velocity = myVel[0];
         /*for (int i = 0; i < mypos.Count; i++)
@@ -96,7 +96,6 @@ public class Granade : Rewindable
             yield return new WaitForSeconds(aux);
         }*/
         StartCoroutine(Explode(explosionTimer + myPos.Count*timeBetweenSaves));
-        Debug.Log(myPos.Count * timeBetweenSaves);
         myPos.Clear();
         myRot.Clear();
         myVel.Clear();

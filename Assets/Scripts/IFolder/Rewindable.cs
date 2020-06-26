@@ -13,10 +13,10 @@ public abstract class Rewindable : MonoBehaviourPun
 
     [SerializeField] float speed = 2;
 
-    [SerializeField] float timeToRewind = 2;
+    [SerializeField] protected float timeToRewind = 2;
     [SerializeField] protected float rewindTime = 2;
     public float fps = 20;
-    public float timeBetweenSaves = 0f;
+    [HideInInspector] public float timeBetweenSaves = 0f;
     public bool shouldBeCapturingPosition = true;
     protected bool backingTime = false;
 
@@ -27,7 +27,6 @@ public abstract class Rewindable : MonoBehaviourPun
     public virtual void Start()
     {
         timeBetweenSaves = 1 / fps;
-        timeToRewind *= fps;
 
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
@@ -35,6 +34,29 @@ public abstract class Rewindable : MonoBehaviourPun
         shouldBeCapturingPosition = true;
         capturePosition = addPositionAlways();
         StartCoroutine(capturePosition);
+    }
+
+    /*public void Rewind()
+    {
+        photonView.RPC("RequestRewind", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    public void RequestRewind()
+    {
+        //PlayerInstantiator.Instance.RequestRewindable()
+        StartCoroutine(RewindTime());
+    }
+    */
+
+    public void OnRewind()
+    {
+        photonView.RPC("Rewind", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void Rewind()
+    {
+        StartCoroutine(RewindTime());
     }
 
     public virtual IEnumerator RewindTime()
@@ -60,13 +82,13 @@ public abstract class Rewindable : MonoBehaviourPun
             Debug.Log("Backing");
             yield return new WaitForSeconds(0.1f);
         }*/
-        float aux = rewindTime / myPos.Count;
+        float aux = timeToRewind / myPos.Count;
         for (int i = 0; i < myPos.Count; i++)
         {
             transform.position = myPos[myPos.Count - i - 1];
             transform.rotation = myRot[myRot.Count - i - 1];
             rb.velocity = Vector3.zero;
-            yield return new WaitForSeconds(timeBetweenSaves);
+            yield return new WaitForSeconds(aux);
         }
         rb.velocity = myVel[0];
         /*for (int i = 0; i < mypos.Count; i++)
@@ -83,7 +105,8 @@ public abstract class Rewindable : MonoBehaviourPun
     }
     public virtual void addNewPos(Vector3 pos, Quaternion rot, Vector3 velocity)
     {
-        if (myPos.Count >= timeToRewind)
+        float aux = rewindTime * fps;
+        if (myPos.Count >= aux)
         {
             //myPosList.Dequeue();
             //myRotList.Dequeue();

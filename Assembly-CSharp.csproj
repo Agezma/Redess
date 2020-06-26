@@ -77,6 +77,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\PlayerInfo.cs" />
     <Compile Include="Assets\RoomDat.cs" />
     <Compile Include="Assets\RoomSelector.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
@@ -91,9 +92,9 @@
     <Compile Include="Assets\Scripts\IFolder\IController.cs" />
     <Compile Include="Assets\Scripts\IFolder\IRewindable.cs" />
     <Compile Include="Assets\Scripts\IFolder\Rewindable.cs" />
-    <Compile Include="Assets\Scripts\NetManager.cs" />
+    <Compile Include="Assets\Scripts\NetThings\NetManager.cs" />
+    <Compile Include="Assets\Scripts\NetThings\PlayerInstantiator.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimator.cs" />
-    <Compile Include="Assets\Scripts\PlayerInstantiator.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\ScreenMouse.cs" />
     <Compile Include="Assets\Scripts\UpdateOnUI.cs" />

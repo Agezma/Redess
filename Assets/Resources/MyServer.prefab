@@ -177,6 +177,8 @@ MonoBehaviour:
   - {fileID: 8355086630249074768}
   controller: {fileID: 1457339933969770876, guid: 673acca6f5cb6c7478630ce47a5cf9b1,
     type: 3}
+  playerInfo: {fileID: 3230761119747769456, guid: 42da8e7ca66410a4b804efcf7ddb2437,
+    type: 3}
 --- !u!114 &8355086630481418492
 MonoBehaviour:
   m_ObjectHideFlags: 0

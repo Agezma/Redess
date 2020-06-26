@@ -7,10 +7,12 @@ public class UpdateOnUI : MonoBehaviour
 {
     public Text lifeText;
     public Text grenadeCounter;
+    public Image rewindImage;
+
+    public 
 
     CharacterHead myChar;
 
-    public Image rewindImage;
 
     private void Start()
     {

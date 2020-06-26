@@ -59,7 +59,7 @@ public class CharacterHead : MonoBehaviourPun
         isDead = false;
         currentHP = maxHp;
         kills = deaths = 0;
-    }
+    }       
 
     public void TurnModel()
     {
@@ -123,7 +123,7 @@ public class CharacterHead : MonoBehaviourPun
 
     public void RewindTime()
     {
-        StartCoroutine(currentRewindable.RewindTime());
+        currentRewindable.OnRewind();
         rewindInCD = true;
         currentRewindCD = rewindCooldown;
         anim.SetTrigger("Rewind");
@@ -144,6 +144,11 @@ public class CharacterHead : MonoBehaviourPun
         }
     }
 
+    public void OnTakeDamage(float dmg)
+    {
+        PlayerInstantiator.Instance.RequestTakeDamage(PhotonNetwork.LocalPlayer, dmg);
+    }
+
     public bool TakeDamage(float dmg)
     {
         currentHP -= dmg;
@@ -155,6 +160,7 @@ public class CharacterHead : MonoBehaviourPun
         }
         else return false;
     }
+
 
 
     bool Die()

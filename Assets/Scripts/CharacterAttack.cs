@@ -33,7 +33,7 @@ public class CharacterAttack
              if (hit.collider.gameObject.GetComponent<CharacterHead>())
              {
                 CharacterHead enemy = hit.collider.GetComponent<CharacterHead>();
-                enemy.TakeDamage(damage);
+                enemy.OnTakeDamage(damage);
              }
          }
         Debug.DrawRay(pos , dir,Color.black, 2f);

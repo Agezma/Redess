@@ -48,6 +48,12 @@ MonoBehaviour:
   - AddController
   - LoadLevelToAll
   - TurnModel
+  - AddPlayerStats
+  - TakeDamage
+  - addCont
+  - GetChar
+  - RequestRewind
+  - RewindTime
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1
